@@ -10,11 +10,8 @@
       {
         packages.restic = import ./restic.nix { inherit pkgs; };
         defaultPackage = self.packages.${system}.restic;
-        devShell =
-          let
-            pkgs = nixpkgs.legacyPackages.${system}; in
-          pkgs.mkShell {
-            buildInputs = [ self.defaultPackage.${system} ];
-          };
+        devShell = pkgs.mkShell {
+          buildInputs = [ self.packages.${system}.restic ];
+        };
       });
 }
